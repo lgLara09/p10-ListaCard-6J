@@ -1,42 +1,58 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MiListaCard());
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  // This widget is the root of your application.
+class MiListaCard extends StatelessWidget {
+  const MiListaCard({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // Application name
-      title: 'Flutter Hello World',
-      // Application theme data, you can set the colors for the application as
-      // you want
-      theme: ThemeData(
-        // useMaterial3: true,
-        primarySwatch: Colors.blue,
-      ),
-      // A widget which will be started on application startup
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+        title: "Mi List View Garcia",
+        theme: ThemeData(
+          primarySwatch: Colors.blueGrey,
+        ),
+        home: PaginaInicial());
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({super.key, required this.title});  
+class PaginaInicial extends StatefulWidget {
+  const PaginaInicial({Key? key}) : super(key: key);
 
+  @override
+  State<PaginaInicial> createState() => _PaginaInicialState();
+}
+
+class _PaginaInicialState extends State<PaginaInicial> {
+  List<String> images = [
+    "assets/images/avatar1.png",
+    "assets/images/avatar2.png",
+    "assets/images/avatar3.jpg",
+    "assets/images/avatar4.png",
+    "assets/images/cinco.png",
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // The title text which will be shown on the action bar
-        title: Text(title),
+        title: const Text("ListView Garcia"),
       ),
-      body: Center(
-        child: Text(
-          'Hello, World!',
-        ),
+      body: ListView.builder(
+        itemBuilder: (BuildContext, index) {
+          return Card(
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundImage: AssetImage(images[index]),
+              ),
+              title: Text("El Titulo"),
+              subtitle: Text("El Subtitulo"),
+            ),
+          );
+        },
+        itemCount: images.length,
+        shrinkWrap: true,
+        padding: EdgeInsets.all(5),
+        scrollDirection: Axis.vertical,
       ),
     );
   }
